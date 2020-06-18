@@ -1,0 +1,17 @@
+{
+  "name": "pokecordia",
+  "version": "0.1.0",
+  "description": "Pokecordia is a pokemon guessing bot for discord",
+  "main": "js/index.js",
+  "scripts": {
+    "start": "tsc & node js/main.js"
+  },
+  "repository": "https://github.com/discordiateam/pokecordia.git",
+  "author": "Discordia Team <discordiateam@outlook.com>",
+  "license": "GPlv3",
+  "private": true,
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "typescript": "^3.9.5"
+  }
+}
