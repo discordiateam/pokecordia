@@ -1,27 +1,57 @@
-import { Message } from "discord.js";
-import ping from "./misc/ping";
+import { Message, MessageEmbed } from "discord.js";
+import { cmd, stringCommands } from "./misc/cmd";
 
 const prefix = "p!";
-const stringCommands: string[] = [
-    'ping',
-];
 
-type commandHandler = (msg: Message, desc?: string) => void;
+type commandHandler = (msg: Message, arg?: string/*[]*/) => string | MessageEmbed | Promise<string>;
 
-/* export function makeACommand(name: string, msg: Message, handler: commandHandler, desc?: string) {
-    stringCommands.forEach(command => {
+function createCommand(msg: Message, handler: commandHandler | string, arg?: string) {
+    if(typeof handler == 'string') return;
+    msg.channel.send(handler(msg, arg));
+    
+}
 
+function getCommandAndArg(msg: Message) {
+    let command: string;
+    let arg: string;
+
+    const msgContent = msg.content.substring(prefix.length, msg.content.length).split('');
+    let verify = false;
+
+    msgContent.forEach((char, index) => {
+        if (char === ' ' && verify === false || index + 1 === msgContent.length && verify === false) {
+            verify = true;
+            command = msgContent.join('');
+            arg = msgContent.join('');
+            if (index + 1 === msgContent.length) {
+                arg = '';
+            } else {
+                command = command.substring(0, index);
+                arg = arg.substring(index + 1, msgContent.length);
+            }
+            return;
+        }
     });
-} */
 
-export function createCommand(name: string, msg: Message, handler: commandHandler, desc?: string) {
-    if(msg.content === prefix + name) {
-        handler(msg);
-    }
+    return { command, arg };
 
-    // TODO: Write desc to help
 }
 
-export const cmd = {
-    ping: ping
-}
+export function executeCommands(msg: Message) {
+    const msgPrefixVerify = msg.content.substring(0, prefix.length);
+
+    if (msgPrefixVerify === prefix) {
+        const { command, arg } = getCommandAndArg(msg);
+
+        const verify = stringCommands.indexOf(command);
+
+        if (verify > -1) {
+            Object.entries(cmd).forEach(com => {
+                if (command === com[0]) {
+                    createCommand(msg, com[1][0], arg);
+                    return;
+                }
+            });
+        }
+    }   
+} 
