@@ -1,13 +1,13 @@
 import { Message, MessageEmbed } from "discord.js";
-import { cmd, stringCommands } from "./misc/cmd";
+import { cmd, stringCommands } from "./dep/exportCommands";
 
 const prefix = "p!";
 
 type commandHandler = (msg: Message, arg?: string/*[]*/) => string | MessageEmbed | Promise<string>;
 
-function createCommand(msg: Message, handler: commandHandler | string, arg?: string) {
+async function createCommand(msg: Message, handler: commandHandler | string, arg?: string) {
     if(typeof handler == 'string') return;
-    msg.channel.send(handler(msg, arg));
+    msg.channel.send(await handler(msg, arg));
     
 }
 
