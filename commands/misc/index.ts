@@ -1,17 +1,25 @@
-import { Message } from "discord.js";
+import { Message, MessageEmbed } from "discord.js";
 
 export function ping(msg: Message, arg?: string) {
-    const ping = (new Date().getTime() - msg.createdTimestamp).toString() + 'ms';
+    const ping = (msg.createdTimestamp - new Date().getTime()).toString() + 'ms';
     arg = '';
-
+    const embed = new MessageEmbed()
+    .setColor('#E21000')
+    .setTitle('Pong!')
+    .addField('Ping:', ping);
     
-    return 'Pong!\n > ' + ping;
+    return embed;
 }  
 
 export function status(msg: Message, arg?: string) {
-    const used = Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100; 
-    const ping = (new Date().getTime() - msg.createdTimestamp).toString() + 'ms';
+    const used = (Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100).toString() + 'mb'; 
+    const ping = (msg.createdTimestamp - new Date().getTime()).toString() + 'ms';
     arg = '';
+    const embed = new MessageEmbed()
+    .setColor('#E21000')
+    .setTitle('Status')
+    .addField('Ping:', ping)
+    .addField('Memória RAM:', used);
     
-    return '> Estou online!\n > Usando ' + used + 'mb de memoria ram\n > Meu ping é de ' + ping;
+    return embed;
 }

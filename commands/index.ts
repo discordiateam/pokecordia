@@ -7,8 +7,16 @@ type commandHandler = (msg: Message, arg?: string/*[]*/) => string | MessageEmbe
 
 async function createCommand(msg: Message, handler: commandHandler | string, arg?: string) {
     if(typeof handler == 'string') return;
-    msg.channel.send(await handler(msg, arg));
-    
+    try {
+        msg.reply(await handler(msg, arg));
+    } catch(err) {
+        try {
+        msg.reply(handler(msg, arg));
+        } catch(err) {
+            msg.reply('Erro ao executar comando.');
+        }
+    }
+  
 }
 
 function getCommandAndArg(msg: Message) {
@@ -46,12 +54,14 @@ export function executeCommands(msg: Message) {
         const verify = stringCommands.indexOf(command);
 
         if (verify > -1) {
-            Object.entries(cmd).forEach(com => {
+            Object.entries(cmd).forEach((com, index) => {
                 if (command === com[0]) {
                     createCommand(msg, com[1][0], arg);
                     return;
                 }
             });
+        }else {
+            msg.channel.send('<@' + msg.author + '> ' + 'Esse comando não existe');
         }
     }   
 } 

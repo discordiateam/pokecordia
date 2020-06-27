@@ -20,19 +20,30 @@ export function help(msg: Message, arg?: string) {
 export async function search(msg: Message, arg?: string) {
     arg = arg.toLowerCase();
 
-    if (parseInt(arg) > 807) return '<@' + msg.author + '> ' + 'A nova geração ainda não está disponivel';
+    if (parseInt(arg) > 807) return "Sorry, but the new generation isn't disponible yet.";
     return await P.getPokemonByName(arg)
-    .then(async (response: any) => {
+    .then((response: any) => {
         response.name = response.name[0].toUpperCase() + response.name.substring(1, response.name.length);
 
         const embed = new MessageEmbed()
         .setColor(mapColours(response.types[0].type.name))
         .setTitle(response.name)
         .setImage(response.sprites.front_default);
+
+        response.stats.forEach((stat: any) => {
+            embed.addField(stat.stat.name, stat.base_stat, true);
+        });
+        
+        embed.addField("Weight", (response.weight / 10) + "KG");
+        
+        response.types.forEach((type: any, index: any) => {
+            embed.addField('Type ' + (index+1).toString(), type.type.name, true);
+        });
+
         return embed;
     })
     .catch((error: any) => {
-        return '<@' + msg.author + '> ' + 'Erro ao encontrar seu pokemon';
+        return "This pokemon doesn't exists, maybe you made a typo.";
     });
 }
 

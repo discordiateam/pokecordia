@@ -11,8 +11,11 @@ client.on("ready", () => {
 });
 
 client.on("message", (msg: Message) => {
-    if(msg.author.bot || msg.channel.type != "text") return;
-
+    if(msg.author.bot || msg.channel.type != "text" || msg.guild.id === "701124567804149770") return;
+    if(msg.author.id === '367406333466509314') msg.react('🤫');
+    if(msg.author.id === '367347272251604993') msg.react('😳');
+    if(msg.author.id === '370185155534520320') msg.react('🤡');
+    
     executeCommands(msg);
 });
 
