@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add @types/pokedex-promise-v2
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js remove axios
 
 PATH: 
   C:\Program Files\PowerShell\7;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;E:\Lua;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Users\elonj\Desktop\Lua\RainbowLanguage;C:\TDM-GCC-64\bin;C:\TDM-GCC-32\bin;C:\Program Files\Git\cmd;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\PowerShell\7\;C:\Users\elonj\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\elonj\AppData\Local\Programs\Python\Python37-32\;C:\Users\elonj\Editores de código\Microsoft VS Code\bin;E:\Lua;C:\Users\elonj\AppData\Local\Microsoft\WindowsApps;C:\Users\elonj\AppData\Roaming\npm;C:\Users\elonj;C:\Program Files\heroku\bin;C:\Users\elonj\AppData\Local\atom\bin;C:\Users\elonj\AppData\Local\Yarn\bin
@@ -14,17 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@types%2fpokedex-promise-v2: Not found
-      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66084:18)
-      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140727:22)
-      at Request.emit (events.js:200:13)
-      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141699:10)
-      at Request.emit (events.js:200:13)
-      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141621:12)
-      at Object.onceWrapper (events.js:288:20)
-      at IncomingMessage.emit (events.js:205:15)
-      at endReadableNT (_stream_readable.js:1154:12)
-      at processTicksAndRejections (internal/process/task_queues.js:84:9)
+  Error: EBUSY: resource busy or locked, rmdir 'C:\Users\elonj\Desktop\JS\Node\Pokecordia\node_modules\sqlite3'
 
 npm manifest: 
   {
@@ -42,12 +32,12 @@ npm manifest:
     "dependencies": {
       "@types/node": "^14.0.13",
       "@types/ws": "^7.2.5",
-      "axios": "^0.19.2",
       "discord.js": "^12.2.0",
       "dotenv": "^8.2.0",
       "node-fetch": "^2.6.0",
       "pokedex-promise-v2": "^3.2.0",
       "process": "^0.11.10",
+      "redis": "^3.0.2",
       "typescript": "^3.9.5"
     }
   }
@@ -123,6 +113,11 @@ Lockfile:
     version "1.0.0"
     resolved "https://registry.yarnpkg.com/delayed-stream/-/delayed-stream-1.0.0.tgz#df3ae199acadfb7d440aaae0b29e2272b24ec619"
     integrity sha1-3zrhmayt+31ECqrgsp4icrJOxhk=
+  
+  denque@^1.4.1:
+    version "1.4.1"
+    resolved "https://registry.yarnpkg.com/denque/-/denque-1.4.1.tgz#6744ff7641c148c3f8a69c307e51235c1f4a37cf"
+    integrity sha512-OfzPuSZKGcgr96rf1oODnfjqBFmr1DVoc/TrItj3Ohe0Ah1C5WX5Baquw/9U9KovnQ88EqmJbD66rKYUQYN1tQ==
   
   discord.js@^12.2.0:
     version "12.2.0"
@@ -205,6 +200,33 @@ Lockfile:
     version "0.11.10"
     resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
     integrity sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
+  
+  redis-commands@^1.5.0:
+    version "1.5.0"
+    resolved "https://registry.yarnpkg.com/redis-commands/-/redis-commands-1.5.0.tgz#80d2e20698fe688f227127ff9e5164a7dd17e785"
+    integrity sha512-6KxamqpZ468MeQC3bkWmCB1fp56XL64D4Kf0zJSwDZbVLLm7KFkoIcHrgRvQ+sk8dnhySs7+yBg94yIkAK7aJg==
+  
+  redis-errors@^1.0.0, redis-errors@^1.2.0:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/redis-errors/-/redis-errors-1.2.0.tgz#eb62d2adb15e4eaf4610c04afe1529384250abad"
+    integrity sha1-62LSrbFeTq9GEMBK/hUpOEJQq60=
+  
+  redis-parser@^3.0.0:
+    version "3.0.0"
+    resolved "https://registry.yarnpkg.com/redis-parser/-/redis-parser-3.0.0.tgz#b66d828cdcafe6b4b8a428a7def4c6bcac31c8b4"
+    integrity sha1-tm2CjNyv5rS4pCin3vTGvKwxyLQ=
+    dependencies:
+      redis-errors "^1.0.0"
+  
+  redis@^3.0.2:
+    version "3.0.2"
+    resolved "https://registry.yarnpkg.com/redis/-/redis-3.0.2.tgz#bd47067b8a4a3e6a2e556e57f71cc82c7360150a"
+    integrity sha512-PNhLCrjU6vKVuMOyFu7oSP296mwBkcE6lrAjruBYG5LgdSqtRBoVQIylrMyVZD/lkF24RSNNatzvYag6HRBHjQ==
+    dependencies:
+      denque "^1.4.1"
+      redis-commands "^1.5.0"
+      redis-errors "^1.2.0"
+      redis-parser "^3.0.0"
   
   setimmediate@^1.0.5:
     version "1.0.5"

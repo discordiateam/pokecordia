@@ -24,6 +24,7 @@ function getCommandAndArg(msg: Message) {
     let arg: string;
 
     const msgContent = msg.content.substring(prefix.length, msg.content.length).split('');
+   
     let verify = false;
 
     msgContent.forEach((char, index) => {
