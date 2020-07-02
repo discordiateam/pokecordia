@@ -4,11 +4,11 @@ import { help, search, setPrefix } from '../util';
 const stringCommands: string[] = [];
 const helpMap = new Map<string, string>();
 const cmd = { 
+    help: [help, 'Show this message'],
     ping: [ping, 'Ping!'],
     status: [status, 'Show the bot status'],
     setPrefix: [setPrefix, 'Set a new prefix for the bot'],
-    search: [search, 'Search for a pokemon'],
-    help: [help, 'Show this message']
+    search: [search, 'Search for a pokemon']
 }
 
 Object.entries(cmd).forEach(entry => {

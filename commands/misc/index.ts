@@ -1,5 +1,5 @@
 import { Message, MessageEmbed } from "discord.js";
-import { } from "redis";
+import { Tedis } from "tedis";
 
 //Get ping in miliseconds and display in embed
 export function ping(msg: Message, arg?: string) {
@@ -25,8 +25,4 @@ export function status(msg: Message, arg?: string) {
     .addField('Memória RAM:', used);
     
     return embed;
-}
-
-export function get_redis(msg: Message, arg?: string) {
-       
 }
