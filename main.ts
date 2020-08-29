@@ -1,5 +1,6 @@
 require('dotenv').config();
-import { Client, Message } from "discord.js"
+import { Client, Message } from "discord.js";
+import Cli from "./commands/cli";
 import { executeCommands } from "./commands";
 
 const client = new Client();
@@ -8,6 +9,10 @@ const secretTag = process.env.SECRET_TAG;
 
 client.on("ready", () => {
     console.log("The bot is running in discord");
+    
+    const cli = new Cli(client);
+    cli.initCLI();
+    
 });
 
 client.on("message", (msg: Message) => {

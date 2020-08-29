@@ -32,7 +32,7 @@ export async function search(msg: Message, arg?: string) {
     const redis = new Tedis();
 
     if(await redis.get(arg)){
-        const embed = JSON.parse(await (await redis.get(arg)).toString());
+        const embed = JSON.parse((await redis.get(arg)).toString());
         return new MessageEmbed(embed);
     }
 
@@ -56,6 +56,7 @@ export async function search(msg: Message, arg?: string) {
         });
 
         await cachePokemon(response.name.toLowerCase(), embed.toJSON());
+        await cachePokemon(response.id.toString(), embed.toJSON());
 
         return embed;
     })
